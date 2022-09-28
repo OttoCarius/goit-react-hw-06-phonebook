@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Box from './Box/Box';
 import ContactForm from './ContactForm/ContactForm';
@@ -8,23 +8,20 @@ import Filter from './Filter/Filter';
 import Section from './Section/Section';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  addContact,
+  removeContact,
+  changeFilter,
+} from '../redux/contactsSlice';
+import { getContacts, getFilter } from '../redux/selectors';
 
-function App() {
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem('contacts')) || []
-  );
-  const [filter, setFilter] = useState('');
+export function App() {
+  const contacts = useSelector(getContacts);
 
-  useEffect(() => {
-    const ourContacts = localStorage.getItem('contacts');
-    if (ourContacts) {
-      setContacts(JSON.parse(ourContacts));
-    }
-  }, []);
+  const filter = useSelector(getFilter);
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const dispatch = useDispatch();
 
   const onSubmit = (name, number) => {
     if (
@@ -34,21 +31,24 @@ function App() {
     ) {
       return toast.error(`${name} is already in contacts.`);
     }
-    setContacts(prevState => [...prevState, { id: nanoid(), name, number }]);
+    dispatch(addContact({ id: nanoid(), name, number }));
   };
 
-  const handleRemoveContact = id =>
-    setContacts(prevState => prevState.filter(contact => contact.id !== id));
+  const handleRemoveContact = contactId => {
+    dispatch(removeContact(contactId));
+  };
+  // const handleRemoveContact = id => dispatch(removeContact({ id }));
 
   const handleFilterChange = e => {
-    setFilter(e.currentTarget.value);
+    dispatch(changeFilter(e.currentTarget.value));
   };
 
-  const visibleContacts = () => {
+  const visibleContacts = e => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
+
   return (
     <Box>
       <Section title="PhoneBook">
@@ -67,5 +67,3 @@ function App() {
     </Box>
   );
 }
-
-export default App;

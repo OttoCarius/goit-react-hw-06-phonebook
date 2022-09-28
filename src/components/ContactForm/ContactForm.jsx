@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-
 import { StyledInput } from './ContactForm.styled';
 import { StyledButton } from './ContactForm.styled';
 import { StyledCont } from './ContactForm.styled';
