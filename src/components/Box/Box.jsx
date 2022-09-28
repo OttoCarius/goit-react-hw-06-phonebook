@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 const Box = styled.div`
-  padding: 10px;
+  padding: 15px;
   width: 500px;
   height: auto;
   margin-top: 200px;
+  margin-bottom: 250px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
