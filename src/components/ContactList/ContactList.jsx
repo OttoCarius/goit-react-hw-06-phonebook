@@ -1,11 +1,26 @@
-import PropTypes from 'prop-types';
-
 import { StyledList } from './ContactList.styled';
 import { StyledText } from './ContactList.styled';
 import { StyledItem } from './ContactList.styled';
 import { StyledButton } from './ContactList.styled';
 
-const ContactList = ({ contacts, onRemove }) => {
+import { useSelector, useDispatch } from 'react-redux';
+import { removeContact } from '../../redux/contactsSlice';
+
+const ContactList = () => {
+  const items = useSelector(state => state.contacts.items);
+  const nameFilter = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
+
+  const deleteContact = contactId => {
+    dispatch(removeContact(contactId));
+  };
+
+  const FilterItems = () => {
+    return items.filter(item => item.name.toLowerCase().includes(nameFilter));
+  };
+
+  let contacts = nameFilter === '' ? items : FilterItems();
+
   return (
     <div>
       <StyledList>
@@ -19,7 +34,7 @@ const ContactList = ({ contacts, onRemove }) => {
                   </StyledText>
                   <StyledButton
                     onClick={() => {
-                      onRemove(contact.id);
+                      deleteContact(contact.id);
                     }}
                   >
                     Delete
@@ -32,17 +47,6 @@ const ContactList = ({ contacts, onRemove }) => {
       </StyledList>
     </div>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onRemove: PropTypes.func,
 };
 
 export default ContactList;
