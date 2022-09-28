@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const Box = styled.div`
-  padding: 15px;
-  width: 500px;
+  padding: 10px;
+  width: 450px;
   height: auto;
   margin-top: 200px;
   margin-bottom: 250px;

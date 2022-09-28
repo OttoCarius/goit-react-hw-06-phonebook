@@ -7,7 +7,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: hsla(180, 48%, 82%, 1);
+
+  /* background-color: hsla(180, 48%, 82%, 1);
   background-image: radial-gradient(
       at 88% 25%,
       hsla(323, 42%, 81%, 1) 0px,
@@ -18,7 +19,7 @@ body {
     radial-gradient(at 49% 81%, hsla(338, 9%, 88%, 1) 0px, transparent 50%),
     radial-gradient(at 81% 93%, hsla(0, 12%, 75%, 1) 0px, transparent 50%),
     radial-gradient(at 86% 63%, hsla(240, 37%, 71%, 1) 0px, transparent 50%),
-    radial-gradient(at 21% 79%, hsla(170, 41%, 75%, 1) 0px, transparent 50%);
+    radial-gradient(at 21% 79%, hsla(170, 41%, 75%, 1) 0px, transparent 50%); */
 }
 
 code {
